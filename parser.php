@@ -4,6 +4,11 @@
  * @dependencies - none
  */
 
+if (!isset($SECURE)) {
+	echo 'We do not show contents to hackers! Try a different way naive!';
+	exit;
+}
+
 if (!isset($_LIB_TODO_PARSER)) {
 	$_LIB_TODO_PARSER = true;
 	// ^ to avoid multiple redeclarations
@@ -63,6 +68,7 @@ if (!isset($_LIB_TODO_PARSER)) {
 			if ($this->deadline != -1) {
 				// #todo - make this more fine, test with more testcases
 				$this->deadline = strtotime($this->deadline);
+				if (!intval($this->deadline)) $this->deadline = -1;
 			}
 
 			if (isset($matches[1])) {
@@ -81,6 +87,8 @@ if (!isset($_LIB_TODO_PARSER)) {
 				// for dates it takes format like MM/DD/YYYY
 				// test permutations here?
 				$this->reminder = strtotime($this->reminder);
+				if (!intval($this->reminder)) $this->reminder = -1;
+
 			}
 
 			if (isset($matches[1])) {
