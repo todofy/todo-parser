@@ -1,10 +1,12 @@
 <?php
+/**
+ * @library - deals with parsing todo comments
+ * @dependencies - none
+ */
 
-if (!defined(_LIB_TODO_PARSER)) {
-	define('_LIB_TODO_PARSER', true);
+if (!isset($_LIB_TODO_PARSER)) {
+	$_LIB_TODO_PARSER = true;
 	// ^ to avoid multiple redeclarations
-
-	date_default_timezone_set(UTC);
 
 	class parser {
 		private $raw;
@@ -25,6 +27,7 @@ if (!defined(_LIB_TODO_PARSER)) {
 
 		private $g_priority = '/.*([\#\@](?:priority)[\s-_.:#$!^&*]*([a-zA-Z0-9]*).*?)[\#\@](?:label|labels|deadline|assign|priority|tags|tag|end)/i';
 
+		// #todo - add tagging by email id too later
 		private $g_tags = '/.*([\#\@](?:tags|tag)[\s-_.:#$!^&*]*([a-zA-Z0-9].*?))[\#\@](?:label|labels|deadline|assign|priority|tags|tag|end).*/i';
 
 		private $g_labels = '/.*([\#\@](?:labels|label)[\s-_.:#$!^&*]*([a-zA-Z0-9].*?))[\#\@](?:label|labels|deadline|assign|priority|tags|tag|end).*/i';
