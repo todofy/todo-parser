@@ -1,4 +1,4 @@
-# todo-parser
+# TODO parser
 a parser in php that extracts structured todo information from comments
 
 
@@ -9,7 +9,7 @@ Need to understnad this ^^ #todo - set token for this cookie @deadline : 1 week 
 ```
 
 This should give
-```
+```md
 TODO: 		set token for this cookie
 DEADLINE: 	1 week
 REMINDER: 	5 days
@@ -17,5 +17,4 @@ PRIORITY: 	high
 TAGS: 		array(mebjas, abhinavdahiya)
 ASSIGNMENT: mebjas
 LABELS: 	array(cookie, token, need_help)
-
-``
+```
