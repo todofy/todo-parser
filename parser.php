@@ -44,7 +44,8 @@ if (!isset($_LIB_TODO_PARSER)) {
 		 * @param: (string) $todo string the whole comment
 		 */
 		function __construct($todo) {
-			$this->raw = $todo .'@end';
+			// Code to remove non printable charecters from the todo string
+			$this->raw = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $todo) .'@end';
 
 			// Attempt to extract todo text from the raw first
 			// Since the parser is called its supposed to have
