@@ -18,7 +18,11 @@ if (!isset($_LIB_TODO_PARSER)) {
 
 		public $todo;
 		public $deadline;
+		public $deadline_text;
+
 		public $reminder;
+		public $reminder_text;
+
 		public $tags;
 		public $labels;
 		public $assignment;
@@ -66,8 +70,12 @@ if (!isset($_LIB_TODO_PARSER)) {
 			if (isset($matches[2])) $this->deadline = $this->trim($matches[2]);
 			else $this->deadline = -1;
 
+			$this->deadline_text = -1;
+
 			if ($this->deadline != -1) {
 				// #todo - make this more fine, test with more testcases
+				$this->deadline_text = $this->deadline;
+
 				$this->deadline = strtotime($this->deadline);
 				if (!intval($this->deadline)) $this->deadline = -1;
 			}
@@ -83,10 +91,14 @@ if (!isset($_LIB_TODO_PARSER)) {
 			if (isset($matches[2])) $this->reminder = $this->trim($matches[2]);
 			else $this->reminder = -1;
 
+			$this->reminder_text = -1;
+
 			if ($this->reminder != -1) {
 				// #todo - make this more fine, test with more testcases
 				// for dates it takes format like MM/DD/YYYY
 				// test permutations here?
+				$this->reminder_text = $this->reminder;
+				
 				$this->reminder = strtotime($this->reminder);
 				if (!intval($this->reminder)) $this->reminder = -1;
 
