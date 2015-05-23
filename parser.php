@@ -28,7 +28,7 @@ if (!isset($_LIB_TODO_PARSER)) {
 		public $assignment;
 		public $priority;
 
-		private $g_todo = '/.*([\#\@]todo[\s-_.:#$!^&*]*([a-zA-Z0-9]{1}.*?))[\#\@](?:label|labels|deadline|assign|priority|reminder|remind|tags|tag|end)/i';
+		private $g_todo = '/.*?([\#\@\s*]todo[\s-_.:#$!^&*\(\)]*([a-zA-Z0-9]{1}.*?))[\#\@](?:label|labels|deadline|assign|priority|reminder|remind|tags|tag|end)/i';
 
 		private $g_deadline = '/.*([\#\@]deadline[\s-_.:#$!^&*]*([a-zA-Z0-9].*?))[\#\@](?:label|labels|deadline|assign|priority|reminder|remind|tags|tag|end)/i';
 
@@ -49,7 +49,7 @@ if (!isset($_LIB_TODO_PARSER)) {
 		 */
 		function __construct($todo) {
 			// Code to remove non printable charecters from the todo string
-			$this->raw = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $todo) .'@end';
+			$this->raw = ' ' .preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $todo) .'@end';
 
 			// Attempt to extract todo text from the raw first
 			// Since the parser is called its supposed to have
