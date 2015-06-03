@@ -137,4 +137,16 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
     	$this->markTestSkipped('here, the todo SHOULD be: $this->markTestSkipped("todo, add appropriate test here");');
     	$this->markTestSkipped('here, the todo COULD be: Check if content before </body> is </script> ');
     }
+
+    public function test_fixme_1() {
+        $g = new parser('FIXME(ecoal95): uncomment me when we have cross-system constants if GLFeature::is_supported @deadline 1 week @tags abhinavdahiya, mebjas, ashutosh11939');
+        $this->assertEquals('ecoal95): uncomment me when we have cross-system constants if GLFeature::is_supported', $g->todo);
+
+        $this->assertEquals(count($g->tags), 3);
+        $this->assertEquals($g->tags[0], 'abhinavdahiya');
+        $this->assertEquals($g->tags[1], 'mebjas');
+        $this->assertEquals($g->tags[2], 'ashutosh11939');
+
+        $this->assertEquals($g->deadline_text, '1 week');
+    }
 };
