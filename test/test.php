@@ -75,6 +75,12 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
 		$g = new parser(" :TODO: optimization: test directly for !important and ! important");
 		$this->assertEquals("optimization: test directly for !important and ! important", $g->todo);
 	}
+	
+	public function test_simple_6() {
+		$g = new parser(" textTODO: optimization: test directly for !important and ! important");
+		$this->assertEquals("[todo string missing] set manually!", $g->todo);
+	}
+	
     public function test_deadline_1() {
     	$g = new parser("todo: complete this on time, this is very important @deadline 1 week @reminder 2 days");
     	$this->assertEquals("complete this on time, this is very important", $g->todo);	
