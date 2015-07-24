@@ -1,4 +1,4 @@
-# TODO parser [![Build Status](https://travis-ci.org/TODOCI/todo-parser.svg)](https://travis-ci.org/TODOCI/todo-parser)
+# TODO parser [![Build Status](https://travis-ci.org/todofy/todo-parser.svg)](https://travis-ci.org/todofy/todo-parser)
 a parser in php that extracts structured todo information from comments
 
 
