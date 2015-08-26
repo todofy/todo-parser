@@ -71,6 +71,16 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
     	$this->assertEquals("Add the {animate = true} option and create the algo for that", $g->todo);
     }
 
+	public function test_simple_5() {
+		$g = new parser(" :TODO: optimization: test directly for !important and ! important");
+		$this->assertEquals("optimization: test directly for !important and ! important", $g->todo);
+	}
+	
+	public function test_simple_6() {
+		$g = new parser(" textTODO: optimization: test directly for !important and ! important");
+		$this->assertEquals("textTODO: optimization: test directly for !important and ! important", $g->todo);
+	}
+	
     public function test_deadline_1() {
     	$g = new parser("todo: complete this on time, this is very important @deadline 1 week @reminder 2 days");
     	$this->assertEquals("complete this on time, this is very important", $g->todo);	
