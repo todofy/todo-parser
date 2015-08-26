@@ -64,8 +64,13 @@ if (!isset($_LIB_TODO_PARSER)) {
 			// TODO (Case Insensitive TEXT in it)
 			preg_match($this->g_todo, $this->raw, $matches);
 
-			if (isset($matches[2])) $this->todo = $this->trim($matches[2]);
-			else $this->todo = '[todo string missing] set manually!';
+			if (isset($matches[2])) {
+				$this->todo = $this->trim($matches[2]);
+				$this->_tsnf = false;
+			} else {
+				$this->todo = $this->trim($this->raw);
+				$this->_tsnf = true;
+			}
 
 			if (isset($matches[1])) {
 				$this->raw = str_replace($matches[1], '', $this->raw);

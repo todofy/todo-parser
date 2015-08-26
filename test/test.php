@@ -86,6 +86,13 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
 
     }
 
+    public function test_no_todo_string() {
+        $g = new parser("complete this by today #TODO ");
+        $this->assertEquals('complete this by today #TODO @end', $g->todo);
+        $this->assertTrue($g->_tsnf);
+
+    }
+
 
     public function test_complex_1() {
     	$g = new parser(" TODO(ecoal95): Get a machine to test with mac and 45	
