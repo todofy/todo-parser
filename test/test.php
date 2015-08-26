@@ -83,14 +83,12 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
 
     	$this->assertEquals($g->deadline_text, "1 week");
     	$this->assertEquals($g->reminder_text, "2 days");
-
     }
 
     public function test_no_todo_string() {
         $g = new parser("complete this by today #TODO ");
-        $this->assertEquals('complete this by today #TODO @end', $g->todo);
+        $this->assertEquals('complete this by today #TODO', $g->todo);
         $this->assertTrue($g->_tsnf);
-
     }
 
 
@@ -130,6 +128,11 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
 
     	$this->assertEquals("make this structure memory efficient by {modified todo text} a linked list in place of an array ^ format 2", $g->todo);
 
+    }
+
+    public function test_complex_7() {
+        $g = new parser(" TODO \" this is a whole new type of todo \" ");
+        $this->assertEquals('this is a whole new type of todo "', $g->todo);
     }
 
     public function test_future_1() {
