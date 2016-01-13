@@ -105,8 +105,8 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
     public function test_complex_1() {
     	$g = new parser(" TODO(ecoal95): Get a machine to test with mac and 45	
 			 get android building:");
-
-    	$this->assertEquals("ecoal95): Get a machine to test with mac and 45 get android building:", $g->todo);
+        $this->assertEquals("Get a machine to test with mac and 45 get android building:", $g->todo);
+    	$this->assertEquals("ecoal95", $g->assignment);
     }
 
     public function test_complex_2() {
@@ -160,7 +160,8 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
 
     public function test_fixme_1() {
         $g = new parser('FIXME(ecoal95): uncomment me when we have cross-system constants if GLFeature::is_supported @deadline 1 week @tags abhinavdahiya, mebjas, ashutosh11939');
-        $this->assertEquals('ecoal95): uncomment me when we have cross-system constants if GLFeature::is_supported', $g->todo);
+        $this->assertEquals('uncomment me when we have cross-system constants if GLFeature::is_supported', $g->todo);
+        $this->assertEquals('ecoal95', $g->assignment);
 
         $this->assertEquals(count($g->tags), 3);
         $this->assertEquals($g->tags[0], 'abhinavdahiya');

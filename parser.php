@@ -54,7 +54,7 @@ if (!isset($_LIB_TODO_PARSER)) {
 			// #todo - validate incoming array for todo ^
 
 			// Now construct the regex for todo
-			$this->g_todo = '/.*?([^a-zA-Z0-9](?:' .implode('|', $this->identifiers) .')[\s-_.:#$!^&*\(\)\"\']*([a-zA-Z0-9]{1}.*?))[\#\@](?:label|labels|deadline|assign|priority|reminder|remind|tags|tag|end)/i';
+			$this->g_todo = '/.*?([^a-zA-Z0-9](?:' .implode('|', $this->identifiers) .')(?:\s*\((.*)\))*[\s-_.:#$!^&*\(\)\"\']*([a-zA-Z0-9]{1}.*?))[\#\@](?:label|labels|deadline|assign|priority|reminder|remind|tags|tag|end)/i';
 
 			// Code to remove non printable charecters from the todo string
 			$this->raw = ' ' .preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $todo) .'@end';
@@ -64,12 +64,16 @@ if (!isset($_LIB_TODO_PARSER)) {
 			// TODO (Case Insensitive TEXT in it)
 			preg_match($this->g_todo, $this->raw, $matches);
 
-			if (isset($matches[2])) {
-				$this->todo = $this->trim($matches[2]);
+			if (isset($matches[3])) {
+				$this->todo = $this->trim($matches[3]);
 				$this->_tsnf = false;
 			} else {
 				$this->todo = $this->trim(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $todo));
 				$this->_tsnf = true;
+			}
+
+			if (isset($matches[2]) && trim($matches[2]) != '') {
+				$this->assignment = trim($matches[2]);
 			}
 
 			if (isset($matches[1])) {
@@ -171,6 +175,9 @@ if (!isset($_LIB_TODO_PARSER)) {
 
 			// Extract assignment from the comment
 			// There is possiblity that you'd not find any priority
+			if (isset($this->assignment) && $this->assignment != null && trim($this->assignment) != '')
+				goto skipAssignment;
+
 			preg_match($this->g_assign, $this->raw, $matches);
 			if (isset($matches[2])) $this->assignment = strtolower($this->trim($matches[2]));
 			else $this->assignment = NULL;
@@ -178,6 +185,8 @@ if (!isset($_LIB_TODO_PARSER)) {
 			if (isset($matches[1])) {
 				$this->raw = str_replace($matches[1], '', $this->raw);
 			}
+
+			skipAssignment:
 
 
 		}
