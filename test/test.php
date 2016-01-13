@@ -142,7 +142,21 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
 
     public function test_complex_7() {
         $g = new parser(" TODO \" this is a whole new type of todo \" ");
-        $this->assertEquals('this is a whole new type of todo "', $g->todo);
+        $this->assertEquals('" this is a whole new type of todo "', $g->todo);
+    }
+
+    public function test_comple_8() {
+        $g = new parser(" FIXME(ecoal95): 'antialias' should be true by default but we do not support antialising so... We must change it when we do. See GLFeature.");
+        $this->assertEquals("'antialias' should be true by default but we do not support antialising so... We must change it when we do. See GLFeature.", $g->todo);
+        $this->assertEquals('ecoal95', $g->assignment);
+    }
+
+    public function test_comple_9() {
+        $g = new parser(" FIXME(ecoal95): %^& We must change it when we do. See GLFeature.");
+        $this->markTestSkipped("here we must ignore the initial symbols, get the text todos and assignment to ecoal95");
+
+        $this->assertEquals("We must change it when we do. See GLFeature.", $g->todo);
+        $this->assertEquals('ecoal95', $g->assignment);
     }
 
     public function test_future_1() {
