@@ -54,7 +54,7 @@ if (!isset($_LIB_TODO_PARSER)) {
 			// #todo - validate incoming array for todo ^
 
 			// Now construct the regex for todo
-			$this->g_todo = '/.*?([^a-zA-Z0-9](?:' .implode('|', $this->identifiers) .')(?:\s*\((.*)\))*[\s-_.:(?:->)]*([a-zA-Z0-9`\'\"]{1}.*?))[\#\@](?:label|labels|deadline|assign|priority|reminder|remind|tags|tag|end)/i';
+			$this->g_todo = '/.*?([^a-zA-Z0-9](?:' .implode('|', $this->identifiers) .')(?:\s*\((.*?)\))*[\s-_.:(?:->)]*([a-zA-Z0-9`\'\"]{1}.*?))[\#\@](?:label|labels|deadline|assign|priority|reminder|remind|tags|tag|end)/i';
 
 			// Code to remove non printable charecters from the todo string
 			$this->raw = ' ' .preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $todo) .'@end';
