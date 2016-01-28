@@ -159,6 +159,16 @@ class TCI_TEST extends PHPUnit_Framework_TestCase
         $this->assertEquals('ecoal95', $g->assignment);
     }
 
+    public function test_comple_10() {
+        $g = new parser("** @todo [words]  check regular expressions for special char replacements (stored specialchared in db) @label: google");
+
+        $this->assertEquals("[words] check regular expressions for special char replacements (stored specialchared in db)", $g->todo);
+
+        $this->assertEquals(count($g->labels), 1);
+        $this->assertEquals($g->labels[0], 'google');
+
+    }
+
     public function test_future_1() {
     	$g = new parser("if \$length > 128 throw exception #todo");
 
